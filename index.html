@@ -95,21 +95,28 @@
 	<script>
 		// selecting the button with the ID "calculate" and assigning the variable calc_btn
 		const calc_btn = document.querySelector("#calculate");
+
 		// defining a function called calculate to run when the calculate button is clicked 
 		function calculate() {
-			// define variables with 'let' to keep track of the line, sub and final totals
+			// define let variables to keep track of the line, sub and final totals
 			let line_total = 0;
 			let sub_total = 0;
 			let total_total = 0;
 			
-			// declare a constant variable with the value stored in the line with the ID "line-1-quantity", querySelector allows you to retrieve the first HTML element that matches a specific selector, .Value retrieves the current value of an HTML input.
+			// declare a constant variable with the value stored in the line with the ID "line-1-quantity" & "line-1-price", querySelector allows you to retrieve the first HTML element that matches a specific selector, .Value retrieves the current value of an HTML input.
 			const line_1_quant = document.querySelector("#line-1-quantity").value;
 			const line_1_price = document.querySelector("#line-1-price").value;
+
+			// Calculating the line total by multiplying the quantity and price.
 			line_total = line_1_quant * line_1_price;
+			
+			// Select the line with ID "line-1", update its innerHTML property to a string ("$") and the line_total value with two decimal places displaying the calculated line total.
 			document.querySelector("#line-1").innerHTML = "$" + line_total.toFixed(2);
 	
+			// calculate the sub total by combining it with line_total
 			sub_total = line_total + sub_total;
 	
+			// Repeat the steps for lines 2 through 5.
 			const line_2_quant = document.querySelector("#line-2-quantity").value;
 			const line_2_price = document.querySelector("#line-2-price").value;
 			line_total = line_2_quant * line_2_price;
@@ -137,17 +144,27 @@
 			document.querySelector("#line-5").innerHTML = "$" + line_total.toFixed(2);
 	
 			sub_total = line_total + sub_total;
+
+			// select the line with ID sub-total and update the innerHTML to display the calculated subtotal (with a string ("$") and two decimal places)
 			document.querySelector("#sub-total").innerHTML = "$" + sub_total.toFixed(2);
 	
+			// declare a constant variable called DISCOUNT, assign a ternary operator to calculate the discount for sub_total: > 250 checks if it is greater than 250, ? separates the condition from the expressions, 0.1 is the value assigned to DISCOUNT if it is true, : separates trur and false, 0 will be assigned if false.
 			const DISCOUNT = sub_total > 250 ? 0.1 : 0;
 	
+			// calculate the final total: multiply the sub_total by 1-DISCOUNT  to account for the 10% off, multiply again by 1.12 to account for 12% tax.  
 			total_total = sub_total * (1 - DISCOUNT) * 1.12;
+
+			// upadted the line with the ID discount to to display the calculated subtotal (with a string ("$") and two decimal places)
 			document.querySelector("#discount").innerHTML = "$" + (sub_total * DISCOUNT).toFixed(2);
+
+			// calculate tax by multiplying the sub_total by 0.12% 
 			const tax = sub_total * 0.12;
+			// update the line with the ID "tax" to display the correct tax total (with a string ("$") and two decimal places).
 			document.querySelector("#tax").innerHTML = "$" + tax.toFixed(2);
+			// updated the line with the ID "total" to display the final calculated total (total_total) with a string ("$") and two decimal places.
 			document.querySelector("#Total").innerHTML = "$" + total_total.toFixed(2);
 		}
-	
+		// add an event listener to activate the calculate button to display the function when clicked.
 		calc_btn.addEventListener("click", calculate);
 	</script>
 	
